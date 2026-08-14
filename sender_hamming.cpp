@@ -26,3 +26,6 @@ int main()
 return 0;
 }
 //Data word: 1011001
+//No. of redandant bit= 4
+//Total no. of bits in codeword:  11
+//Final codeword is transmitted:101001110
