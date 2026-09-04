@@ -2,46 +2,53 @@
 #include <string>
 using namespace std;
 
-string divide(string data, string div)
+string divide(string code, string div)
 {
-    int n = data.length();
+    int n = code.length();
     int m = div.length();
 
     for (int i = 0; i <= n - m; i++)
     {
-        if (data[i] == '1')
+        if (code[i] == '1')
         {
             for (int j = 0; j < m; j++)
             {
-                if (data[i + j] == div[j])
-                    data[i + j] = '0';
+                if (code[i + j] == div[j])
+                    code[i + j] = '0';
                 else
-                    data[i + j] = '1';
+                    code[i + j] = '1';
             }
         }
     }
 
-    return data.substr(n - m + 1);
+    return code.substr(n - m + 1);
 }
 
 int main()
 {
-    string data, div, rem, code;
-
-    cout << "Enter Data Word: ";
-    cin >> data;
-
+    string code, div, rem;
+    cout << "Enter Received Code Word: ";
+    cin >> code;
     cout << "Enter Divisor: ";
     cin >> div;
-    int zero = div.length() - 1;
-    string temp = data + string(zero, '0');
-    rem = divide(temp, div);
-    code = data + rem;
+    rem = divide(code, div);
+    cout << "\nReceived Code Word : " << code << endl;
+    cout << "Divisor            : " << div << endl;
+    cout << "Remainder          : " << rem << endl;
+    bool error = false;
+    for (char x : rem)
+    {
+        if (x == '1')
+        {
+            error = true;
+            break;
+        }
+    }
 
-    cout << "\nData Word       : " << data << endl;
-    cout << "Divisor         : " << div << endl;
-    cout << "Zeros to add    : " << zero << endl;
-    cout << "Data + Zeros    : " << temp << endl;
-    cout << "Remainder       : " << rem << endl;
-    cout << "Final Code Word : " << code << endl;
+    if (error)
+        cout << "Result             : ERROR DETECTED!" << endl;
+    else
+        cout << "Result             : NO ERROR" << endl;
+
+    return 0;
 }
