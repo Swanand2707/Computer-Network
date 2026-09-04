@@ -2,46 +2,46 @@
 #include <string>
 using namespace std;
 
-int main() {
-    string codeword, generator;
+string divide(string data, string div)
+{
+    int n = data.length();
+    int m = div.length();
 
-    cout << "Enter received codeword: ";
-    cin >> codeword;
-
-    cout << "Enter generator bits: ";
-    cin >> generator;
-
-    int n = generator.length();
-
-    // Modulo-2 division
-    string temp = codeword;
-
-    for (int i = 0; i <= temp.length() - n; i++) {
-        if (temp[i] == '1') {
-            for (int j = 0; j < n; j++) {
-                temp[i + j] = (temp[i + j] == generator[j]) ? '0' : '1';
+    for (int i = 0; i <= n - m; i++)
+    {
+        if (data[i] == '1')
+        {
+            for (int j = 0; j < m; j++)
+            {
+                if (data[i + j] == div[j])
+                    data[i + j] = '0';
+                else
+                    data[i + j] = '1';
             }
         }
     }
 
-    // Check remainder
-    string remainder = temp.substr(temp.length() - (n - 1));
+    return data.substr(n - m + 1);
+}
 
-    cout << "Remainder: " << remainder << endl;
+int main()
+{
+    string data, div, rem, code;
 
-    bool error = false;
+    cout << "Enter Data Word: ";
+    cin >> data;
 
-    for (char bit : remainder) {
-        if (bit == '1') {
-            error = true;
-            break;
-        }
-    }
+    cout << "Enter Divisor: ";
+    cin >> div;
+    int zero = div.length() - 1;
+    string temp = data + string(zero, '0');
+    rem = divide(temp, div);
+    code = data + rem;
 
-    if (error)
-        cout << "Error detected." << endl;
-    else
-        cout << "No error detected." << endl;
-
-    return 0;
+    cout << "\nData Word       : " << data << endl;
+    cout << "Divisor         : " << div << endl;
+    cout << "Zeros to add    : " << zero << endl;
+    cout << "Data + Zeros    : " << temp << endl;
+    cout << "Remainder       : " << rem << endl;
+    cout << "Final Code Word : " << code << endl;
 }
