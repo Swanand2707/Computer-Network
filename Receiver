@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string codeword, generator;
+
+    cout << "Enter received codeword: ";
+    cin >> codeword;
+
+    cout << "Enter generator bits: ";
+    cin >> generator;
+
+    int n = generator.length();
+
+    // Modulo-2 division
+    string temp = codeword;
+
+    for (int i = 0; i <= temp.length() - n; i++) {
+        if (temp[i] == '1') {
+            for (int j = 0; j < n; j++) {
+                temp[i + j] = (temp[i + j] == generator[j]) ? '0' : '1';
+            }
+        }
+    }
+
+    // Check remainder
+    string remainder = temp.substr(temp.length() - (n - 1));
+
+    cout << "Remainder: " << remainder << endl;
+
+    bool error = false;
+
+    for (char bit : remainder) {
+        if (bit == '1') {
+            error = true;
+            break;
+        }
+    }
+
+    if (error)
+        cout << "Error detected." << endl;
+    else
+        cout << "No error detected." << endl;
+
+    return 0;
+}
