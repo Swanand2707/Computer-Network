@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string data, generator;
+
+    cout << "Enter data bits: ";
+    cin >> data;
+
+    cout << "Enter generator bits: ";
+    cin >> generator;
+
+    int n = generator.length();
+
+    // Append zeros
+    string temp = data + string(n - 1, '0');
+
+    // Modulo-2 division using XOR
+    for (int i = 0; i <= temp.length() - n; i++) {
+        if (temp[i] == '1') {
+            for (int j = 0; j < n; j++) {
+                temp[i + j] = (temp[i + j] == generator[j]) ? '0' : '1';
+            }
+        }
+    }
+
+    // Get CRC remainder
+    string remainder = temp.substr(temp.length() - (n - 1));
+
+    // Generate codeword
+    string codeword = data + remainder;
+
+    cout << "CRC Remainder: " << remainder << endl;
+    cout << "Transmitted Codeword: " << codeword << endl;
+
+    return 0;
+}
