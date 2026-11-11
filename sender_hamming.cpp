@@ -22,7 +22,10 @@ int main()
     {
         cout<<h[i];
     }
-
+cout<<"\nR1"<<"="<<h[1];
+cout<<"\nR2"<<"="<<h[2];
+cout<<"\nR4"<<"="<<h[4];
+cout<<"\nR8"<<"="<<h[8];   
 return 0;
 }
 //Data word: 1011001
